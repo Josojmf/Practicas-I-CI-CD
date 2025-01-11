@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  web:
+    image: josojmf/practicas-i-int:17-12-2024
+    container_name: practicas-1-int
+    ports:
+      - "5005:5005"
+    environment:
+      DB_USERNAME: joso
+      DB_PASSWORD: test123
+      DB_CLUSTER: mongo
+      DB_NAME: Practicas_I_Automation_Project
+      DB_USERS_COLLECTION: Users
+    
