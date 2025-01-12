@@ -25,7 +25,7 @@ jobs:
     # Step 3: Trigger the DigitalOcean webhook
     - name: Trigger deployment webhook
       run: |
-        curl -X POST http://209.38.255.32:9000/hooks/update-docker-image
+        curl -X POST http://209.38.255.32:9000/hooks/deploy-latest
 
     # Step 4: Determine which tag to use
     - name: Set Docker image tag
