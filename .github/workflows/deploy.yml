@@ -1,9 +1,10 @@
 name: Docker Image Deployment
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Docker Image Build and Push"] # Name of the build workflow
+    types:
+      - completed
 
 jobs:
   deploy:
