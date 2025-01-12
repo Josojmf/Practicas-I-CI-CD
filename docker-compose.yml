@@ -2,8 +2,8 @@ version: "3.8"
 
 services:
   web:
-    image: josojmf/practicas-i-int:latest
-    container_name: practicas-1-int
+    image: josojmf/practicas-i-dev:latest
+    container_name: practicas-1-dev
     ports:
       - "5005:5005"
     environment:
