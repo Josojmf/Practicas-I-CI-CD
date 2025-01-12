@@ -30,5 +30,5 @@ ENV DB_NAME=${DB_NAME}
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=development
 
-# Start the Flask app
-CMD ["flask", "run", "--host=0.0.0.0"]
+# Start the Flask app on port 80
+CMD ["python", "main.py"]
