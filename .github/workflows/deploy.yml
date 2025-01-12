@@ -26,7 +26,7 @@ jobs:
       id: set-tag
       run: |
         docker pull josojmf/practicas-i-dev:${{ github.sha }} || echo "Image for commit ${{ github.sha }} not found, using 'latest' as fallback"
-        if docker images josojmf/practicas-i-dev:${{ github.sha }} -q > /dev/null; then
+        if docker pull josojmf/practicas-i-dev:${{ github.sha }}; then
           echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
         else
           echo "IMAGE_TAG=latest" >> $GITHUB_ENV
@@ -38,7 +38,7 @@ jobs:
         docker stop practicas-i-container || true
         docker rm practicas-i-container || true
 
-    # Step 5: Run the container
+    # Step 5: Run the container with the correct image tag
     - name: Run the container
       run: |
         docker run -d \
