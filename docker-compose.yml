@@ -5,7 +5,7 @@ services:
     image: josojmf/practicas-i-dev-ci-cd:latest
     container_name: practicas-1-dev-ci-cd
     ports:
-      - "5000:5000"
+      - "80:80"
     environment:
       DB_USERNAME: joso
       DB_PASSWORD: test123
