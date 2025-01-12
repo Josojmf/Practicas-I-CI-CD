@@ -30,3 +30,4 @@ jobs:
         push: true
         tags: |
           josojmf/practicas-i-dev-ci-cd:latest
+          josojmf/practicas-i-dev-ci-cd:${{ github.sha }}
