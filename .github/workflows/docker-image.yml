@@ -21,7 +21,7 @@ jobs:
       uses: docker/login-action@v2
       with:
         username: "josojmf"
-        password: "a"
+        password: "gr#@!Cp9cGso4fHR"
 
     # Paso 3: Construcción y etiquetado de la imagen Docker
     - name: Build and push Docker image
