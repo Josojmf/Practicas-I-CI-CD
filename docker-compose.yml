@@ -2,10 +2,10 @@ version: "3.8"
 
 services:
   web:
-    image: josojmf/practicas-i-dev:latest
-    container_name: practicas-1-dev
+    image: josojmf/practicas-i-dev-ci-cd:latest
+    container_name: practicas-1-dev-ci-cd
     ports:
-      - "5005:5005"
+      - "5000:5000"
     environment:
       DB_USERNAME: joso
       DB_PASSWORD: test123

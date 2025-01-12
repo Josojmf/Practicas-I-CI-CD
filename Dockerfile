@@ -11,8 +11,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the entire app
 COPY . .
 
-# Expose port 5005 for Flask
-EXPOSE 5005
+# Expose port 5000 for Flask
+EXPOSE 5000
 
 # Add build arguments for environment variables
 ARG DB_USERNAME

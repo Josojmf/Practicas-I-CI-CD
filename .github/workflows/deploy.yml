@@ -30,8 +30,8 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: |
-          josojmf/practicas-i-dev:latest
-          josojmf/practicas-i-dev:${{ github.sha }}
+          josojmf/practicas-i-dev-ci-cd:latest
+          josojmf/practicas-i-dev-ci-cd:${{ github.sha }}
         build-args: |
           DB_USERNAME=${{ secrets.DB_USERNAME }}
           DB_PASSWORD=${{ secrets.DB_PASSWORD }}
