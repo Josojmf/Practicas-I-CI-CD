@@ -2,7 +2,7 @@ name: Docker Image Deployment
 
 on:
   workflow_run:
-    workflows: ["Docker Image Build and Push"] # Nombre del workflow anterior
+    workflows: ["Docker Image Build and Push"]
     types:
       - completed
 
@@ -22,7 +22,12 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    # Step 3: Determine which tag to use
+    # Step 3: Trigger the DigitalOcean webhook
+    - name: Trigger deployment webhook
+      run: |
+        curl -X POST http://209.38.255.32:9000/hooks/update-docker-image
+
+    # Step 4: Determine which tag to use
     - name: Set Docker image tag
       id: set-tag
       run: |
@@ -34,13 +39,13 @@ jobs:
           echo "IMAGE_TAG=latest" >> $GITHUB_ENV
         fi
 
-    # Step 4: Stop and remove existing container
+    # Step 5: Stop and remove existing container
     - name: Stop and remove existing container
       run: |
         docker stop practicas-i-container || true
         docker rm practicas-i-container || true
 
-    # Step 5: Run the container with the correct image tag
+    # Step 6: Run the container with the correct image tag
     - name: Run the container
       run: |
         echo "Using image tag: ${{ env.IMAGE_TAG }}"
