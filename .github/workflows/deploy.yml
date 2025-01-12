@@ -1,13 +1,12 @@
-name: Docker Image CI
+name: Docker Image Deployment
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,18 +21,29 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    # Step 3: Build and push Docker image
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        file: ./Dockerfile
-        push: true
-        tags: |
-          josojmf/practicas-i-dev-ci-cd:latest
-          josojmf/practicas-i-dev-ci-cd:${{ github.sha }}
-        build-args: |
-          DB_USERNAME=${{ secrets.DB_USERNAME }}
-          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-          DB_CLUSTER=${{ secrets.DB_CLUSTER }}
-          DB_NAME=${{ secrets.DB_NAME }}
+    # Step 3: Pull the Docker image from Docker Hub
+    - name: Pull Docker image
+      run: |
+        docker pull josojmf/practicas-i-dev:${{ github.sha }}
+
+    # Step 4: Stop and remove the existing container (if any)
+    - name: Stop and remove existing container
+      run: |
+        docker stop practicas-i-container || true
+        docker rm practicas-i-container || true
+
+    # Step 5: Run the container with environment variables
+    - name: Run the container
+      run: |
+        docker run -d \
+          --name practicas-i-container \
+          -p 80:80 \
+          -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
+          -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+          -e DB_CLUSTER=${{ secrets.DB_CLUSTER }} \
+          -e DB_NAME=${{ secrets.DB_NAME }} \
+          -e DB_USERS_COLLECTION=${{ secrets.DB_USERS_COLLECTION }} \
+          -e DB_LOGS_COLLECTION=${{ secrets.DB_LOGS_COLLECTION }} \
+          -e DB_SETTINGS_COLLECTION=${{ secrets.DB_SETTINGS_COLLECTION }} \
+          -e DB_MESSAGES_COLLECTION=${{ secrets.DB_MESSAGES_COLLECTION }} \
+          josojmf/practicas-i-dev:${{ github.sha }}
